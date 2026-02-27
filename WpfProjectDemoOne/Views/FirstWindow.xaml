@@ -1,0 +1,66 @@
+﻿<Window x:Class="WpfProjectDemoOne.Views.FirstWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfProjectDemoOne.Views" 
+        xmlns:viewmodels="clr-namespace:WpfProjectDemoOne.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:FirstViewModel}"
+        mc:Ignorable="d"
+        Title="WPF测试程序" Height="500" Width="800">
+
+
+    <!--  使用 Grid 进行主布局分区 -->
+    <Grid>
+
+        <!--行布局，行高-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--列布局，列宽-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!--  第一部分：按钮 -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,10,10,10" Grid.Row="0" Grid.Column="1" Width="100">
+
+
+        </StackPanel>
+
+        <Button Content="{Binding ButtonText}"
+        Width="100"
+        Height="30"
+        Margin="5,100,5,100"
+        Command="{Binding relayCommand}"                    
+        CommandParameter="迪奥大人" />
+
+        <!--<Button Content="填满"/>-->
+
+        <!--  第二部分：文本输入与显示 -->
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10">
+
+            <Button Content="{Binding ButtonText}"                    
+                    Command="{Binding relay1Command}" 
+                    CommandParameter="迪奥大人"                
+                    Width="300" Height="50"                     
+                    Margin="0,0,0,10" />
+
+            <!--
+                Mode是绑定方式（双向绑定），
+                UpdateSourceTrigger是更新时机（什么时候回写到属性），默认是焦点改变更新ViewModel属性
+                PropertyChanged为每改变一个字符，立马更新
+            -->
+            <TextBox Text="{Binding TextBoxText, 
+                            Mode=TwoWay,
+                            UpdateSourceTrigger=PropertyChanged}" 
+                     Width="200" Margin="0,0,0,5"/>
+
+            <TextBlock Text="{Binding TextBoxText}" FontSize="16" />
+
+        </StackPanel>
+    </Grid>
+</Window>
