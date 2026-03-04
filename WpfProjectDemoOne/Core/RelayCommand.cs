@@ -22,7 +22,7 @@ namespace WpfProjectDemoOne.Core
 
         /// <summary>
         /// 当命令的可执行状态发生变化时触发（界面会重新评估按钮是否可用）
-        /// 初始话时，所有实现了ICommandSource 的事件，都会自动注册 CommandManager.RequerySuggested 事件
+        /// 初始化时，所有实现了ICommandSource 的事件，都会自动注册 CommandManager.RequerySuggested 事件
         /// 当界面元素状态发生变化时，会自动触发此事件，这个事件会通知所有控件的 0nCanExecuteChanged 事件,
         /// 0nCanExecuteChanged事件会调用 ICommand.CanExecute 方法，根据返回的 bool 值，决定控件的 isEnabled 属性
         /// 这里的value，就是控件的 0nCanExecuteChanged 事件
