@@ -28,6 +28,7 @@ namespace WpfProjectDemoOne.Views
 
         private readonly Dictionary<string, LayoutDocument> _openDocs = new Dictionary<string, LayoutDocument>();
 
+
         public TestWindow()
         {
             InitializeComponent();
@@ -42,11 +43,13 @@ namespace WpfProjectDemoOne.Views
             {
                 DeviceComboBox.Items.Add(item);
             }
+
+            this.DataContext = new ViewModels.TestViewModel();
             
         }                    
 
         // 只存“打开状态”，不存 LayoutDocument
-        private readonly HashSet<string> _openKeys = new HashSet<string>();       
+        private readonly HashSet<string> _openKeys = new HashSet<string>();
 
 
         private void DeviceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -111,11 +114,11 @@ namespace WpfProjectDemoOne.Views
             // 4. 关闭事件（只清状态，不手动 Remove）
             doc.Closed += (s, args) =>
             {
-                _openKeys.Remove(key);                
+                _openKeys.Remove(key);
             };
 
             DockManager.UpdateLayout(); // 刷新
-                        
+
 
         }
 

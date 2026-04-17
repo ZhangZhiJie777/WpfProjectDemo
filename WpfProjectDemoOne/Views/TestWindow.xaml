@@ -7,9 +7,13 @@
         mc:Ignorable="d"
         xmlns:avalonDock="https://github.com/Dirkster99/AvalonDock"
         xmlns:theme="https://github.com/Dirkster99/AvalonDock"
+        xmlns:viewmodels="clr-namespace:WpfProjectDemoOne.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:TestViewModel}"          
         Title="TestWindow" Height="450" Width="800">
-
+    
     <Grid>
+
+
         <!-- 定义行和列 -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -51,11 +55,11 @@
             </MenuItem>
         </Menu>
 
-        
+
         <!-- 设备列表区域，放在第二行第一列 -->
         <avalonDock:DockingManager x:Name="DockManager" Grid.Row="1" Grid.ColumnSpan="2"  Margin="0,0,0,0">
             <avalonDock:DockingManager.Theme>
-                <theme:Vs2013BlueTheme />
+                <avalonDock:GenericTheme />
             </avalonDock:DockingManager.Theme>
 
             <avalonDock:LayoutRoot>

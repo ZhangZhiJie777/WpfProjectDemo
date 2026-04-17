@@ -33,22 +33,10 @@ namespace WpfProjectDemoOne
             //var testWindow = new TestWindow();
             //testWindow.Show();
 
-            string path = @"E:\Project\GitHub\MySelf\WpfProjectDemo\WpfProjectDemoOne";
 
-            foreach (var file in Directory.GetFiles(path, "*.*", SearchOption.AllDirectories))
-            {
-                byte[] bytes = File.ReadAllBytes(file);
-
-                string header = System.Text.Encoding.UTF8.GetString(bytes);
-
-                if (header.StartsWith("%TSD-Header"))
-                {
-                    Console.WriteLine($"被加密文件: {file}");
-                }
-            }
 
             var demoWindow = new DemoWindow();
-            demoWindow.Show();  
+            demoWindow.Show();
 
         }
 

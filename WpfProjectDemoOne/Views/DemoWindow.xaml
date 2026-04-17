@@ -6,6 +6,8 @@
         xmlns:avalonDock="https://github.com/Dirkster99/AvalonDock"
         xmlns:theme="https://github.com/Dirkster99/AvalonDock"
         xmlns:local="clr-namespace:WpfProjectDemoOne.Views"
+        xmlns:viewmodels="clr-namespace:WpfProjectDemoOne.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:DemoViewModel}"        
         mc:Ignorable="d"
         Title="DemoWindow"
         Height="720"
@@ -14,23 +16,35 @@
         MinWidth="960"
         WindowStartupLocation="CenterScreen"
         Background="#1E1E1E">
+    <!-- 统一资源区：集中定义颜色和基础样式，方便后续统一调整界面风格 -->
     <Window.Resources>
+        <!-- 整个窗口最外层背景 -->
         <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#1E1E1E" />
+        <!-- 常规面板背景，例如左右停靠窗口 -->
         <SolidColorBrush x:Key="SurfaceBrush" Color="#252526" />
+        <!-- 次级面板背景，例如顶部区域和输入框背景 -->
         <SolidColorBrush x:Key="SurfaceAltBrush" Color="#2D2D30" />
+        <!-- 深色边框颜色 -->
         <SolidColorBrush x:Key="BorderBrushDark" Color="#3F3F46" />
+        <!-- 主文字颜色 -->
         <SolidColorBrush x:Key="TextBrush" Color="#F3F3F3" />
+        <!-- 次级说明文字颜色 -->
         <SolidColorBrush x:Key="SubtleTextBrush" Color="#C8C8C8" />
+        <!-- 主题强调色 -->
         <SolidColorBrush x:Key="AccentBrush" Color="#0E639C" />
+        <!-- 强调色高亮版本 -->
         <SolidColorBrush x:Key="AccentHoverBrush" Color="#1177BB" />
+        <!-- 中央文档区域背景色 -->
         <SolidColorBrush x:Key="DocumentBrush" Color="#1F1F1F" />
 
+        <!-- 顶部菜单栏的默认样式 -->
         <Style TargetType="Menu">
             <Setter Property="Background" Value="{StaticResource SurfaceBrush}" />
             <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
             <Setter Property="Padding" Value="8,4" />
         </Style>
 
+        <!-- 各菜单项的默认样式 -->
         <Style TargetType="MenuItem">
             <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
             <Setter Property="Background" Value="{StaticResource SurfaceBrush}" />
@@ -38,7 +52,12 @@
         </Style>
     </Window.Resources>
 
+    <!--
+        外层 DockPanel:
+        顶部放标题栏和菜单栏，底部放状态栏，中间留给 AvalonDock 工作区。
+    -->
     <DockPanel Background="{StaticResource WindowBackgroundBrush}">
+        <!-- 顶部标题和菜单区域 -->
         <Border DockPanel.Dock="Top"
                 Background="{StaticResource SurfaceAltBrush}"
                 BorderBrush="{StaticResource BorderBrushDark}"
@@ -49,6 +68,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
+                <!-- 标题区：左侧产品说明，右侧版本徽标 -->
                 <Grid Grid.Row="0" Margin="16,10,16,6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -65,6 +85,7 @@
                                    Foreground="{StaticResource SubtleTextBrush}" />
                     </StackPanel>
 
+                    <!-- 版本标签 -->
                     <Border Grid.Column="1"
                             Padding="10,6"
                             Background="{StaticResource AccentBrush}"
@@ -76,6 +97,7 @@
                     </Border>
                 </Grid>
 
+                <!-- 菜单栏：所有菜单项在代码后置中均有对应 Click 处理方法 -->
                 <Menu Grid.Row="1">
                     <MenuItem Header="_File">
                         <MenuItem Header="_New Workspace" Click="NewWorkspaceMenuItem_Click" />
@@ -110,6 +132,7 @@
             </Grid>
         </Border>
 
+        <!-- 底部状态栏：显示当前状态、分支和目标框架等信息 -->
         <StatusBar DockPanel.Dock="Bottom"
                    Background="{StaticResource SurfaceBrush}"
                    Foreground="{StaticResource SubtleTextBrush}"
@@ -128,14 +151,22 @@
             </StatusBarItem>
         </StatusBar>
 
+        <!--
+            AvalonDock 工作区：
+            用来模拟 Visual Studio 风格的 IDE 布局，支持停靠、文档页和工具窗口。
+        -->
         <avalonDock:DockingManager x:Name="DockManager" Margin="8" AllowMixedOrientation="True">
             <avalonDock:DockingManager.Theme>
-                <theme:Vs2013BlueTheme />
+                <!-- 当前停靠主题，可替换为其它 AvalonDock 官方主题 -->
+                <theme:GenericTheme/>
             </avalonDock:DockingManager.Theme>
 
             <avalonDock:LayoutRoot>
+                <!-- 最外层纵向分区：上方主工作区，下方输出/错误区域 -->
                 <avalonDock:LayoutPanel Orientation="Vertical">
+                    <!-- 上方主工作区：左工具箱，中间文档区，右资源管理/属性区 -->
                     <avalonDock:LayoutPanel Orientation="Horizontal">
+                        <!-- 左侧工具箱 -->
                         <avalonDock:LayoutAnchorablePaneGroup DockWidth="230">
                             <avalonDock:LayoutAnchorablePane>
                                 <avalonDock:LayoutAnchorable x:Name="ToolboxAnchorable"
@@ -143,6 +174,7 @@
                                                              CanClose="False"
                                                              CanHide="False"
                                                              IsSelected="True">
+                                    <!-- 模拟 IDE 工具箱中的常用控件列表 -->
                                     <Border Background="{StaticResource SurfaceBrush}" Padding="12">
                                         <StackPanel>
                                             <TextBlock Text="常用控件"
@@ -166,8 +198,10 @@
                             </avalonDock:LayoutAnchorablePane>
                         </avalonDock:LayoutAnchorablePaneGroup>
 
+                        <!-- 中央文档页签区域 -->
                         <avalonDock:LayoutDocumentPaneGroup>
                             <avalonDock:LayoutDocumentPane x:Name="MainDocumentPane">
+                                <!-- 启动页文档：展示工作区介绍信息 -->
                                 <avalonDock:LayoutDocument x:Name="StartPageDocument"
                                                            Title="Start Page"
                                                            IsActive="True">
@@ -178,6 +212,7 @@
                                                 <RowDefinition Height="Auto" />
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
+                                            <!-- 启动页标题和副标题 -->
                                             <StackPanel>
                                                 <TextBlock Text="欢迎使用 Demo Studio"
                                                            FontSize="28"
@@ -189,6 +224,7 @@
                                                            Foreground="{StaticResource SubtleTextBrush}" />
                                             </StackPanel>
 
+                                            <!-- 三张说明卡片，介绍当前工作区的结构特点 -->
                                             <UniformGrid Grid.Row="1"
                                                          Margin="0,24,0,0"
                                                          Rows="1"
@@ -242,6 +278,7 @@
                                                 </Border>
                                             </UniformGrid>
 
+                                            <!-- 启动页底部说明条 -->
                                             <Border Grid.Row="2"
                                                     Margin="0,24,0,0"
                                                     Padding="16"
@@ -257,6 +294,7 @@
                                     </Border>
                                 </avalonDock:LayoutDocument>
 
+                                <!-- 编辑文档：模拟实际业务页面或设计器区域 -->
                                 <avalonDock:LayoutDocument x:Name="EditorDocument"
                                                            Title="MainView.xaml">
                                     <Border Background="{StaticResource DocumentBrush}" Padding="18">
@@ -271,6 +309,7 @@
                                                        FontWeight="SemiBold"
                                                        Foreground="{StaticResource TextBrush}" />
 
+                                            <!-- 文档预览区域 -->
                                             <Border Grid.Row="1"
                                                     Margin="0,16,0,0"
                                                     Background="#2B2B2E"
@@ -308,8 +347,10 @@
                             </avalonDock:LayoutDocumentPane>
                         </avalonDock:LayoutDocumentPaneGroup>
 
+                        <!-- 右侧停靠窗口：解决方案资源管理器 + 属性面板 -->
                         <avalonDock:LayoutAnchorablePaneGroup DockWidth="280">
                             <avalonDock:LayoutAnchorablePane>
+                                <!-- 解决方案资源管理器 -->
                                 <avalonDock:LayoutAnchorable x:Name="SolutionExplorerAnchorable"
                                                              Title="Solution Explorer"
                                                              CanClose="False"
@@ -319,7 +360,14 @@
                                         <TreeView Background="{StaticResource SurfaceBrush}"
                                                   Foreground="{StaticResource TextBrush}"
                                                   BorderThickness="0">
-                                            <TreeViewItem Header="WpfProjectDemoOne" IsExpanded="True">
+                                            <TreeView.Resources>
+                                                <Style TargetType="TreeViewItem">
+                                                    <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+                                                </Style>
+                                            </TreeView.Resources>
+
+                                            <!-- 演示用项目结构树 -->
+                                            <TreeViewItem Header="WpfProjectDemoOne" IsExpanded="True" >
                                                 <TreeViewItem Header="Views" IsExpanded="True">
                                                     <TreeViewItem Header="DemoWindow.xaml" />
                                                     <TreeViewItem Header="TestWindow.xaml" />
@@ -333,6 +381,7 @@
                                     </Border>
                                 </avalonDock:LayoutAnchorable>
 
+                                <!-- 属性窗口 -->
                                 <avalonDock:LayoutAnchorable x:Name="PropertiesAnchorable"
                                                              Title="Properties"
                                                              CanClose="False"
@@ -376,8 +425,10 @@
                         </avalonDock:LayoutAnchorablePaneGroup>
                     </avalonDock:LayoutPanel>
 
+                    <!-- 底部停靠区域：输出窗口和错误列表 -->
                     <avalonDock:LayoutAnchorablePaneGroup DockHeight="180">
                         <avalonDock:LayoutAnchorablePane>
+                            <!-- 输出窗口：用于展示日志、运行状态等信息 -->
                             <avalonDock:LayoutAnchorable x:Name="OutputAnchorable"
                                                          Title="Output"
                                                          CanClose="False"
@@ -406,6 +457,7 @@
                                 </Border>
                             </avalonDock:LayoutAnchorable>
 
+                            <!-- 错误列表：模拟 IDE 中的错误面板 -->
                             <avalonDock:LayoutAnchorable x:Name="ErrorsAnchorable"
                                                          Title="Error List"
                                                          CanClose="False"

@@ -4,12 +4,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media;
 
 namespace WpfProjectDemoOne.ViewModels
 {
-    public class TestViewModel : INotifyPropertyChanged
+    public class DemoViewModel : INotifyPropertyChanged
     {
+
         #region INotifyPropertyChanged 接口实现
 
         /// <summary>
@@ -28,26 +28,9 @@ namespace WpfProjectDemoOne.ViewModels
 
         #endregion
 
-
-        //private Brush _fill;
-
-        //public Brush Fill
-        //{
-        //    get { return _fill; }
-        //    set
-        //    {
-        //        if (_fill != value)
-        //        {
-        //            _fill = value;
-        //            OnPropertyChanged(nameof(Fill)); // 通知视图更新
-        //        }
-        //    }
-        //}
-
-        public TestViewModel()
+        public DemoViewModel()
         {
-            //Fill = Brushes.Red;
-        }
 
+        }
     }
 }
