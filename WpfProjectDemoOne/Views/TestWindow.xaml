@@ -1,0 +1,103 @@
+﻿<Window x:Class="WpfProjectDemoOne.Views.TestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfProjectDemoOne.Views"
+        mc:Ignorable="d"
+        xmlns:avalonDock="https://github.com/Dirkster99/AvalonDock"
+        xmlns:theme="https://github.com/Dirkster99/AvalonDock"
+        Title="TestWindow" Height="450" Width="800">
+
+    <Grid>
+        <!-- 定义行和列 -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- 菜单栏的高度 -->
+            <RowDefinition Height="*"/>
+            <!-- 主要内容区域，设备列表和设备页面 -->
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <!-- 设备列表区域宽度 -->
+            <ColumnDefinition Width="*"/>
+            <!-- 设备页面区域 -->
+        </Grid.ColumnDefinitions>
+
+        <!-- 菜单放在 Grid 的第一行 -->
+        <Menu Grid.Row="0" Grid.ColumnSpan="2">
+            <MenuItem Header="File">
+                <MenuItem Header="New"/>
+                <MenuItem Header="Open"/>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Undo"/>
+                <MenuItem Header="Cut"/>
+                <MenuItem Header="Copy"/>
+            </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="Explorer"/>
+                <MenuItem Header="Open"/>
+            </MenuItem>
+            <MenuItem Header="Tool">
+                <MenuItem Header="Extentions"/>
+                <MenuItem Header="Options"/>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="Welcome"/>
+                <MenuItem Header="Support"/>
+                <MenuItem Header="About"/>
+            </MenuItem>
+        </Menu>
+
+        
+        <!-- 设备列表区域，放在第二行第一列 -->
+        <avalonDock:DockingManager x:Name="DockManager" Grid.Row="1" Grid.ColumnSpan="2"  Margin="0,0,0,0">
+            <avalonDock:DockingManager.Theme>
+                <theme:Vs2013BlueTheme />
+            </avalonDock:DockingManager.Theme>
+
+            <avalonDock:LayoutRoot>
+
+                <avalonDock:LayoutPanel Orientation="Horizontal">
+
+                    <avalonDock:LayoutPanel Orientation="Horizontal" DockWidth="200">
+                        <!-- 侧边：设备列表 -->
+                        <avalonDock:LayoutAnchorablePaneGroup DockWidth="200">
+                            <avalonDock:LayoutAnchorablePane>
+                                <avalonDock:LayoutAnchorable  Title="设备列表" IsSelected="True" >
+                                    <StackPanel>
+
+                                        <!--设备列表 (ComboBox)-->
+                                        <ComboBox x:Name="DeviceComboBox"
+                                                    DisplayMemberPath="DeviceName"
+                                                    SelectedValuePath="PageType"
+                                                    Width="180"
+                                                    Height="30"
+                                                    VerticalAlignment="Top"
+                                                    Margin="5"
+                                                    SelectionChanged="DeviceComboBox_SelectionChanged"/>
+                                    </StackPanel>
+                                </avalonDock:LayoutAnchorable>
+
+                            </avalonDock:LayoutAnchorablePane>
+                        </avalonDock:LayoutAnchorablePaneGroup>
+                    </avalonDock:LayoutPanel>
+
+                    <avalonDock:LayoutPanel Orientation="Horizontal" DockWidth="200">
+                        
+                        <!-- 中间：文档区域（显示设备页面） -->
+                        <avalonDock:LayoutDocumentPane x:Name="DocumentPane"/>
+                        
+                    </avalonDock:LayoutPanel>
+
+                </avalonDock:LayoutPanel>
+
+            </avalonDock:LayoutRoot>
+
+        </avalonDock:DockingManager>
+
+    </Grid>
+
+</Window>

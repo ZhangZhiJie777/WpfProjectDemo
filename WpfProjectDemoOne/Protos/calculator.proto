@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+// 服务定义
+service Calculator {
+  rpc Add (AddRequest) returns (AddResponse);
+}
+
+// 请求消息
+message AddRequest {
+  int32 num1 = 1;
+  int32 num2 = 2;
+}
+
+// 响应消息
+message AddResponse {
+  int32 result = 1;
+}

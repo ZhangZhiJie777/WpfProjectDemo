@@ -1,0 +1,16 @@
+﻿<Window x:Class="WpfProjectDemoOne.Views.TwoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfProjectDemoOne.Views" xmlns:viewmodels="clr-namespace:WpfProjectDemoOne.ViewModels"
+        mc:Ignorable="d"
+        Title="TwoWindow" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance Type=viewmodels:TwoViewModel}">
+    <Grid>
+
+        <Button Content="服务端" HorizontalAlignment="Left" Margin="67,107,0,0" VerticalAlignment="Top" Height="68" Width="139" FontSize="36" Command ="{Binding TestRelayCommand}"/>
+
+        <Button Content="客户端" HorizontalAlignment="Left" Margin="562,107,0,0" VerticalAlignment="Top" Height="68" Width="139" FontSize="36" Command ="{Binding ClientRelayCommand}"/>
+    </Grid>
+</Window>

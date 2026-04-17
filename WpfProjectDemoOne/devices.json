@@ -1,0 +1,10 @@
+[
+  {
+    "DeviceName": "设备1",
+    "PageType": "TestUserControl"
+  },
+  {
+    "DeviceName": "设备2",
+    "PageType": "TestUserControl"
+  }
+]
